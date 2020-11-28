@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculatrice</title>
+    
+    <style>
+        #ecran{
+            background: black;
+            color: chartreuse;
+            text-align: right;
+            width: 100%;
+            box-sizing: border-box;
+            padding:2px;
+            font-size: 1.2em;
+        }
+            .btn{
+                width: 30px;
+                height: 30px;
+            }
+            .gbtn{
+                width: 100%;
+            }
+    </style>
+
+    <script>
+        var operande1='0';
+        var operator ='+';
+        function calculer(g,v){
+            //console.log(g,v);
+
+            var ecran = document.querySelector('#ecran');
+            switch (g){
+                case 'ch':
+                    if(ecran.value=='0') ecran.value='';
+                ecran.value +=v;
+                break;
+                case'dec':
+                    if(ecran.value.indexOf('.') == -1)
+                     ecran.value += '.'; 
+                break;
+                case'op':
+                        operande1=ecran.value;
+                        operator=v;
+                        ecran.value='';
+                break;
+                case'eg':
+                   switch(operator){
+                       case '+': ecran.value=ecran.value*1 + operande1;break;
+                       case '-': ecran.value=operande1 - ecran.value;break;
+                       case 'x': ecran.value=operande1 * ecran.value;break;
+                       case '/': ecran.value=operande1 / ecran.value;break;
+                   }
+                break;
+                case'sp':
+                    
+                    break;
+            }
+        }
+    </script>
+</head>
+<body>
+    <table border="3">
+        <tr colspan="5">
+            <input type="text" id="ecran" value="0" size="3">
+        </tr>
+        <tr >
+            <td><button class="btn" onclick="calculer('ch',7)">7</button></td>
+            <td><button class="btn" onclick="calculer('ch',8)">8</button></td>
+            <td><button class="btn" onclick="calculer('ch',9)">9</button></td>
+            <td><button class="btn" onclick="calculer('sp','c')">C</button></td>
+            <td><button class="btn" onclick="calculer('sp','ce')">CE</button></td>
+        </tr>
+        <tr>
+            <td><button class="btn" onclick="calculer('ch',4)">4</button></td>
+            <td><button class="btn" onclick="calculer('ch',5)">5</button></td>
+            <td><button class="btn" onclick="calculer('ch',6)">6</button></td>
+            <td><button class="btn" onclick="calculer('op','+')">+</button></td>
+            <td><button class="btn" onclick="calculer('op','-')">-</button></td>
+        </tr>
+        <tr>
+            <td><button class="btn" onclick="calculer('ch',1)">1</button></td>
+            <td><button class="btn" onclick="calculer('ch',2)">2</button></td>
+            <td><button class="btn" onclick="calculer('ch',3)">3</button></td>
+            <td><button class="btn" onclick="calculer('op','x')">X</button></td>
+            <td><button class="btn" onclick="calculer('op','/')">/</button></td>
+        </tr>
+
+        <tr>
+            <td colspan="2"><button class="btn gbtn" onblur="calculer('ch',0)">0</button></td>
+            <td><button class="btn" onclick="calculer('dec')"></button>,</td>
+            <td colspan="2"> <button class="btn gbtn" onblur="calculer('eg','')">=</button> </td>
+        </tr>
+
+    </table>
+</body>
+</html>
